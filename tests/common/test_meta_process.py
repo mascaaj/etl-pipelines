@@ -205,7 +205,6 @@ class TestMetaFileProcessing(unittest.TestCase):
                                                                        self.date_str_1)
         self.assertEqual(self.date_str_1, min_date_result)
         self.assertEqual(set(date_list_result), set(date_list_expected))
-        self.fixture_teardown(key)
 
     def test_return_date_list_bad_date(self):
         """
@@ -216,7 +215,7 @@ class TestMetaFileProcessing(unittest.TestCase):
         # Test Init
         with self.assertRaises(exception_expression):
             self.meta.return_date_list(self.s3_bucket_conn, self.date_str_2)
-        self.fixture_teardown(key)
+
 
     def test_return_date_list_with_metafile(self):
         """

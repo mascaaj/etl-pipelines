@@ -57,7 +57,8 @@ class MetaProcess():
         try:
             set_meta = set(pd.to_datetime(
                            df_meta[MetaProcessFormat.META_SOURCE_DATE_COLUMN.value]).dt.date)
-        except WrongMetaFile:
+        except KeyError:
+            raise WrongMetaFile
             self._logger.info('Metafile might be corrupted or does not exist')
         return df_meta, set_meta
 

@@ -1,0 +1,24 @@
+name: code-coverage
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        ls
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install --dev
+    - name: Generate Report
+      run: |
+        pipenv install --ignore-pipfile --system
+        pipenv install --dev --system
+        pip list
+        coverage run --omit="*/tests*" -m unittest discover -v
+        coverage report -m

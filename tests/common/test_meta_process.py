@@ -129,6 +129,7 @@ class TestMetaFileProcessing(unittest.TestCase):
         with self.assertLogs() as logm:
             with self.assertRaises(exception_expression):
                 self.meta.calculate_datelist(self.date_str_2)
+                print(logm.output[0])
             self.assertIn(log_expression, logm.output[0])
 
     def test_date_list_good_date_range(self):
@@ -197,7 +198,7 @@ class TestMetaFileProcessing(unittest.TestCase):
         """
         Tests if the datelist returns correctly if there was no metafile to begin with
         """
-        key = self.fixture_setup()
+        self.fixture_setup()
         date_list_expected = [(datetime.today().date() - timedelta(days=x))
                               .strftime(MetaProcessFormat.META_DATE_FORMAT.value)
                               for x in range(self.date_delta)]
@@ -210,12 +211,11 @@ class TestMetaFileProcessing(unittest.TestCase):
         """
         Tests if the datelist returns correctly if post dated argument is supplied
         """
-        key = self.fixture_setup()
+        self.fixture_setup()
         exception_expression = BadDateRange
         # Test Init
         with self.assertRaises(exception_expression):
             self.meta.return_date_list(self.s3_bucket_conn, self.date_str_2)
-
 
     def test_return_date_list_with_metafile(self):
         """
@@ -238,5 +238,6 @@ if __name__ == "__main__":
 
     # test = TestMetaFileProcessing()
     # test.setUp()
-    # test.fixture_setup(False)
-    # test.test_update_meta_file()
+    # # test.fixture_setup(False)
+    # test.test_read_meta_file_corrupted()
+    # test.tearDown()

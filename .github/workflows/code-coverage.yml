@@ -15,9 +15,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv install --dev
-        if  [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Generate Report
       run: |
-        pip install coverage
+        pipenv install --ignore-pipfile --system
+        pipenv install --dev --system
+        pip list
         coverage run --omit="*/tests*" -m unittest discover -v
         coverage report -m

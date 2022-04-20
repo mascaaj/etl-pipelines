@@ -59,7 +59,6 @@ class S3BucketConnector():
             data = BytesIO(prq_obj)
             df = pd.read_parquet(data)
         else:
-            self._logger.info("File format does not exist. No files will be read from s3")
             raise WrongFormatException
         return df
 
